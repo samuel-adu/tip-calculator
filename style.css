@@ -207,7 +207,7 @@ label {
 
 @media (min-width: 980px) {
   header {
-    margin-block: 5rem;
+    margin-block: 7.5rem 2.5rem;
   }
 
   .main {
