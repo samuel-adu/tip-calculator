@@ -35,7 +35,7 @@ body {
   background-color: var(--white);
   border-top-left-radius: var(--border-radius-l);
   border-top-right-radius: var(--border-radius-l);
-  border-radius: var(--border-radius-l);
+  margin-bottom: 2.5rem;
 }
 
 .calculator {
@@ -187,6 +187,7 @@ label {
 .attribution {
   font-size: 11px;
   text-align: center;
+  margin-bottom: 2.5rem;
 }
 .attribution a {
   color: hsl(228, 45%, 44%);
@@ -204,19 +205,16 @@ label {
 }
 
 @media (min-width: 980px) {
-  /* body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100svh;
-  } */
+  header {
+    margin-block: 5rem;
+  }
 
   .main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: auto;
+    margin-inline: auto;
+    margin-bottom: 5rem;
     border-radius: var(--border-radius-l);
     width: 920px;
     height: 480px;
