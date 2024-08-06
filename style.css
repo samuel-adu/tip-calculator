@@ -188,6 +188,7 @@ label {
   font-size: 11px;
   text-align: center;
   margin-bottom: 2.5rem;
+  text-align: center;
 }
 .attribution a {
   color: hsl(228, 45%, 44%);
