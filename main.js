@@ -27,7 +27,7 @@ function validateInput(input) {
   if (parseFloat(input.value) === 0) {
     showError(input, "can't be zero");
   } else if (input.value === '') {
-    showError(input, "can't be zero");
+    showError(input, "can't be blank");
   } else {
     showSuccess(input);
     isValidInput = true;
@@ -70,11 +70,11 @@ customTipInput.addEventListener('input', function () {
 });
 
 tipButtons.forEach((btn) => {
-  btn.addEventListener('click', function selectTip(event) {
-    customTipInput.value = '';
+  btn.addEventListener('click', function (event) {
     tipButtons.forEach((btn) => {
       btn.classList.remove('active');
-
+      customTipInput.value = '';
+      showSuccess(customTipInput);
       if (event.target.dataset.percent === btn.dataset.percent) {
         btn.classList.add('active');
         tipPercent = event.target.dataset.percent;
