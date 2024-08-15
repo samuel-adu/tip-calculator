@@ -86,10 +86,8 @@ header {
   margin-bottom: 2rem;
 }
 
-.result-board {
-  background-color: var(--clr-primary-900);
-  padding: 1.5rem;
-  border-radius: var(--border-radius-m);
+.form-field {
+  position: relative;
 }
 
 label {
@@ -97,6 +95,12 @@ label {
   margin-bottom: 1rem;
   color: var(--clr-primary-700);
   font-weight: var(--fw-bold);
+}
+
+.form-icon {
+  position: absolute;
+  top: 3.75rem;
+  left: 1rem;
 }
 
 .form-control {
@@ -133,8 +137,9 @@ label {
 .error-message {
   color: rgb(204, 83, 83);
   font-weight: var(--fw-bold);
+  font-size: 1rem;
   position: absolute;
-  top: -2rem;
+  top: 0;
   right: 0;
 }
 
@@ -142,22 +147,19 @@ label {
   border: 2px solid rgb(204, 83, 83);
 }
 
-.form-control.error:hover,
-.form-control.error:focus {
+.form-control.success {
+  border: 2px solid var(--clr-primary-400);
+}
+
+/* .form-field.error .form-control:hover,
+.form-field.error .form-control:focus {
   border: 2px solid rgb(204, 83, 83);
-}
+} */
 
-.people-wrapper,
-.bill-wrapper {
-  position: relative;
-}
-
-.people-wrapper > img,
-.bill-wrapper > img {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 1.5rem;
+.result-board {
+  background-color: var(--clr-primary-900);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-m);
 }
 
 .result {
@@ -192,6 +194,17 @@ label {
 }
 .attribution a {
   color: hsl(228, 45%, 44%);
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 @media (min-width: 640px) {

@@ -6,81 +6,112 @@ const totalAmountEl = document.getElementById('total-amount-per-person');
 const tipAmountEl = document.getElementById('tip-amount-per-person');
 const resetBtn = document.getElementById('reset-btn');
 
-let billAmount = 0;
-let tipPecent = 0.15;
-let numberOfPeople = 1;
+let bill = parseFloat(billInput.value);
+let numberOfPeople = parseFloat(numberOfPeopleInput.value);
+let tipPercent = customTipInput.value / 100;
 
-resetBtn.addEventListener('click', handleReset);
+function showError(element, message) {
+  element.classList.remove('success');
+  element.classList.add('error');
+  element.nextElementSibling.innerText = message;
+}
+
+function showSuccess(element) {
+  element.classList.remove('error');
+  element.classList.add('success');
+  element.nextElementSibling.innerText = '';
+}
+
+function validateInput(input) {
+  let isValidInput = false;
+  if (parseFloat(input.value) === 0) {
+    showError(input, "can't be zero");
+  } else if (input.value === '') {
+    showError(input, "can't be zero");
+  } else {
+    showSuccess(input);
+    isValidInput = true;
+  }
+  return isValidInput;
+}
+
+function validateBill() {
+  return validateInput(billInput);
+}
+
+function validateNumberOfPeople() {
+  return validateInput(numberOfPeopleInput);
+}
+
+function validateTipPercent() {
+  return validateInput(customTipInput);
+}
+
+function selectTip(event) {
+  showSuccess(customTipInput);
+  tipButtons.forEach((btn) => {
+    btn.classList.remove('active');
+
+    if (event.target.dataset.percent === btn.dataset.percent) {
+      btn.classList.add('active');
+      tipPercent = event.target.dataset.percent;
+      calculateAmount();
+    }
+  });
+}
 
 billInput.addEventListener('input', function () {
-  billAmount = parseFloat(billInput.value);
-  updateResultBoard();
+  if (validateBill()) {
+    bill = parseFloat(billInput.value);
+    calculateAmount();
+  }
 });
 
 numberOfPeopleInput.addEventListener('input', function () {
-  numberOfPeople = Number(numberOfPeopleInput.value);
-  validateInput(numberOfPeople);
-  updateResultBoard();
+  if (validateNumberOfPeople()) {
+    numberOfPeople = parseFloat(numberOfPeopleInput.value);
+    calculateAmount();
+  }
+});
+
+customTipInput.addEventListener('input', function () {
+  tipButtons.forEach((btn) => btn.classList.remove('active'));
+  if (validateTipPercent()) {
+    tipPercent = parseFloat(customTipInput.value);
+    calculateAmount();
+  }
 });
 
 tipButtons.forEach((btn) => {
   btn.addEventListener('click', selectTip);
 });
 
-customTipInput.addEventListener('input', function () {
-  tipButtons.forEach((btn) => btn.classList.remove('active'));
-  tipPecent = customTipInput.value / 100;
-  updateResultBoard();
-});
+function calculateAmount() {
+  let isBillValid = validateBill();
+  let isTipPercentValid = tipPercent > 0 || validateTipPercent();
+  let isNumberOfPeopleValid = validateNumberOfPeople();
+  let totalPerPerson = 0;
+  let tipPerPerson = 0;
 
-function selectTip(event) {
-  tipButtons.forEach((btn) => {
-    btn.classList.remove('active');
+  let isFormValid = isBillValid && isNumberOfPeopleValid && isTipPercentValid;
 
-    if (event.target.dataset.percent === btn.dataset.percent) {
-      btn.classList.add('active');
-      tipPecent = event.target.dataset.percent / 100;
-    }
-  });
+  console.log(`isFormValid: ${isFormValid}`);
 
-  updateResultBoard();
+  if (isFormValid) {
+    tipPerPerson = (bill * (tipPercent / 100)) / numberOfPeople;
+    totalPerPerson = (bill + bill * (tipPercent / 100)) / numberOfPeople;
+    totalAmountEl.innerText = `$${totalPerPerson.toFixed(2)}`;
+    tipAmountEl.innerText = `$${tipPerPerson.toFixed(2)}`;
+  }
 }
 
-function updateResultBoard() {
-  const tipAmount = tipPecent * billAmount;
-  const total = billAmount + tipAmount;
-  const totalPerPerson = total / numberOfPeople;
-  const tipAmountPerPerson = tipAmount / numberOfPeople;
-
-  const tipAmountText = tipAmountPerPerson
-    ? `$${tipAmountPerPerson.toFixed(2)}`
-    : '$0.00';
-
-  const totalAmountText = totalPerPerson
-    ? `$${totalPerPerson.toFixed(2)}`
-    : '$0.00';
-
-  tipAmountEl.innerText = tipAmountText;
-  totalAmountEl.innerText = totalAmountText;
-}
-
-function handleReset() {
+resetBtn.addEventListener('click', function () {
   billAmount = 0;
-  tipPecent = 0;
+  tipPercent = 0;
   billInput.value = '';
   customTipInput.value = '';
   numberOfPeopleInput.value = '';
   tipButtons.forEach((btn) => btn.classList.remove('active'));
-  updateResultBoard();
-}
-
-function validateInput(input) {
-  const errorMessage = document.getElementById('error-message');
-  if (input === 0) {
-    numberOfPeopleInput.classList.add('error');
-    errorMessage.innerText = "Can't be zero";
-  } else {
-    numberOfPeopleInput.classList.remove('error');
-    errorMessage.innerText = '';
-  }
-}
+  totalAmountEl.innerText = `$0.00`;
+  tipAmountEl.innerText = `$0.00`;
+});

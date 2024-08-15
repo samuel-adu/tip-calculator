@@ -30,45 +30,57 @@
 
     <main class="main">
       <div class="calculator">
-        <label for="bill">Bill</label>
-        <div class="bill-wrapper">
+        <div class="form-field">
+          <label for="bill">Bill</label>
           <input
             class="form-control"
-            type="text"
+            type="number"
             name="Bill"
             id="bill"
             placeholder="0"
           />
-          <img src="./images/icon-dollar.svg" alt="dollar icon" />
-        </div>
-
-        <label for="tip-percent">Select Tip %</label>
-        <div class="tip-group">
-          <button data-percent="5" class="btn tip-btn">5%</button>
-          <button data-percent="10" class="btn tip-btn">10%</button>
-          <button data-percent="15" class="btn tip-btn">15%</button>
-          <button data-percent="25" class="btn tip-btn">25%</button>
-          <button data-percent="50" class="btn tip-btn">50%</button>
-          <input
-            class="form-control"
-            type="text"
-            name="tip"
-            id="custom-tip"
-            placeholder="Custom"
+          <span class="error-message" id="bill-error"></span>
+          <img
+            class="form-icon"
+            src="./images/icon-dollar.svg"
+            alt="dollar icon"
           />
         </div>
 
-        <label for="num-of-people">Number of People</label>
-        <div class="people-wrapper">
+        <div class="form-field">
+          <label for="tip-percent">Select Tip %</label>
+          <div class="tip-group">
+            <button data-percent="5" class="btn tip-btn">5%</button>
+            <button data-percent="10" class="btn tip-btn">10%</button>
+            <button data-percent="15" class="btn tip-btn">15%</button>
+            <button data-percent="25" class="btn tip-btn">25%</button>
+            <button data-percent="50" class="btn tip-btn">50%</button>
+            <input
+              class="form-control"
+              type="number"
+              name="tip"
+              id="custom-tip"
+              placeholder="Custom"
+            />
+            <small class="error-message" id="tip-percent-error"></small>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="num-of-people">Number of People</label>
           <input
             class="form-control"
-            type="text"
+            type="number"
             name="numberOfPeople"
             id="num-of-people"
             placeholder="0"
           />
-          <small class="error-message" id="error-message"></small>
-          <img src="./images/icon-person.svg" alt="person icon" />
+          <small class="error-message" id="num-of-people-error"></small>
+          <img
+            class="form-icon"
+            src="./images/icon-person.svg"
+            alt="person icon"
+          />
         </div>
       </div>
 
