@@ -47,19 +47,6 @@ function validateTipPercent() {
   return validateInput(customTipInput);
 }
 
-function selectTip(event) {
-  showSuccess(customTipInput);
-  tipButtons.forEach((btn) => {
-    btn.classList.remove('active');
-
-    if (event.target.dataset.percent === btn.dataset.percent) {
-      btn.classList.add('active');
-      tipPercent = event.target.dataset.percent;
-      calculateAmount();
-    }
-  });
-}
-
 billInput.addEventListener('input', function () {
   if (validateBill()) {
     bill = parseFloat(billInput.value);
@@ -83,7 +70,18 @@ customTipInput.addEventListener('input', function () {
 });
 
 tipButtons.forEach((btn) => {
-  btn.addEventListener('click', selectTip);
+  btn.addEventListener('click', function selectTip(event) {
+    customTipInput.value = '';
+    tipButtons.forEach((btn) => {
+      btn.classList.remove('active');
+
+      if (event.target.dataset.percent === btn.dataset.percent) {
+        btn.classList.add('active');
+        tipPercent = event.target.dataset.percent;
+        calculateAmount();
+      }
+    });
+  });
 });
 
 function calculateAmount() {
